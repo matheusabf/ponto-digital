@@ -8,7 +8,7 @@ function Header() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [usuarioAtual, setUsuarioAtual] = useState(null);
   const [loginError, setLoginError] = useState('');
-  const { usuarios, loading, error, getUsuario, getUsuarioById } = useUsuarios();
+  const { loading, error, getUsuario, getUsuarioById } = useUsuarios();
   const navigate = useNavigate();
   const id = sessionStorage.getItem('userId'); // Armazenar ID do usuário no sessionStorage
   const autenticado = sessionStorage.getItem('autenticado') === 'true';

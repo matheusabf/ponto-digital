@@ -1,5 +1,5 @@
-import {React, useEffect, useState } from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
+import {React} from 'react';
+import {Route, Routes } from 'react-router-dom';
 import FolhaDePonto from '../../components/FolhaDePonto';
 import Relatorio from '../../components/Relatorio';
 import MeusDados from '../../components/MeusDados';
