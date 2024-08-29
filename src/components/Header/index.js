@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './index.css';
 import { useUsuarios } from '../../banco/firebase';
@@ -12,6 +12,23 @@ function Header() {
   const navigate = useNavigate();
   const id = sessionStorage.getItem('userId'); // Armazenar ID do usuário no sessionStorage
   const autenticado = sessionStorage.getItem('autenticado') === 'true';
+
+  // Função para buscar e definir o usuário atual
+  const fetchUsuarioAtual = useCallback(async () => {
+    if (id) {
+      try {
+        const usuario = await getUsuarioById(id);
+        setUsuarioAtual(usuario);
+      } catch (error) {
+        console.error('Erro ao buscar usuário atual:', error);
+      }
+    }
+  }, [id, getUsuarioById]);
+
+  // Chama fetchUsuarioAtual somente quando necessário
+  if (autenticado && !usuarioAtual) {
+    fetchUsuarioAtual();
+  }
 
   const openPopup = () => setIsPopupOpen(true);
   const closePopup = () => setIsPopupOpen(false);
@@ -28,8 +45,9 @@ function Header() {
 
   const handleLogin = async (login, senha) => {
     try {
-      const usuario = await getUsuario(login, senha);
-      if (usuario) {
+      const usuarios = await getUsuario(login, senha);
+      if (usuarios.length > 0) {
+        const usuario = usuarios[0]; // Supondo que você queira o primeiro usuário da lista
         sessionStorage.setItem('autenticado', 'true');
         sessionStorage.setItem('userId', usuario.id); // Armazenar ID do usuário no sessionStorage
         setUsuarioAtual(usuario);
@@ -42,21 +60,6 @@ function Header() {
       setLoginError('Erro ao fazer login');
     }
   };
-
-  useEffect(() => {
-    const fetchUsuarioAtual = async () => {
-      if (id) {
-        try {
-          const usuario = await getUsuarioById(id);
-          setUsuarioAtual(usuario);
-        } catch (error) {
-          console.error('Erro ao buscar usuário atual:', error);
-        }
-      }
-    };
-
-    fetchUsuarioAtual();
-  }, [id, getUsuarioById]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;

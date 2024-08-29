@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getFirestore, getDocs, collection, query, where, doc, getDoc, setDoc } from 'firebase/firestore';
+import { getFirestore, getDocs, collection, query, where, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
 
 const firebaseApp = initializeApp({
@@ -54,6 +54,7 @@ export function useUsuarios() {
 
   const registerUsuario = async (login, nome, senha, email, cpf) => {
     try {
+      // Adiciona um novo documento ou substitui o existente
       await setDoc(doc(db, 'USUARIOS', login), { LOGIN: login, NOME: nome, SENHA: senha, EMAIL: email, CPF: cpf });
     } catch (error) {
       console.error("Error registering user:", error);
@@ -76,5 +77,15 @@ export function useUsuarios() {
     }
   };
 
-  return { usuarios, loading, error, getUsuario, registerUsuario, getUsuarioById };
+  const updateUsuario = async (id, updatedData) => {
+    const userDocRef = doc(db, 'USUARIOS', id);
+    try {
+      await updateDoc(userDocRef, updatedData);
+    } catch (error) {
+      console.error("Error updating user:", error);
+      throw error;
+    }
+  };
+
+  return { usuarios, loading, error, getUsuario, registerUsuario, getUsuarioById, updateUsuario };
 }
