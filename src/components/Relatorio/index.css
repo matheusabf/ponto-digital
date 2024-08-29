@@ -1,0 +1,38 @@
+.relatorio-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    margin-right: 10px;
+  }
+  
+  select {
+    padding: 5px;
+    font-size: 1rem; 
+    width:20%;
+  }
+  
+  .relatorio-container button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #102144;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width:20%;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
