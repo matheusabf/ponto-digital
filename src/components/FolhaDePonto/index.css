@@ -1,27 +1,25 @@
-/* Estilos gerais para a tabela */
+
 table {
     width: 100%;
-    border-collapse: collapse; /* Remove espaçamento entre células */
+    border-collapse: collapse; 
   }
   
-  /* Estilos para o cabeçalho da tabela */
   thead th {
     background-color: #f2f2f2;
     padding: 10px;
     border: 1px solid #ddd;
   }
   
-  /* Estilos para as células da tabela */
   tbody td {
     padding: 10px;
     border: 1px solid #ddd;
   }
   
-  /* Define a altura e rolagem para a tabela */
+ 
   .table-container {
-    max-height: 500px; /* Ajuste a altura conforme necessário */
-    overflow-y: auto; /* Adiciona rolagem vertical se o conteúdo exceder a altura */
-    border: 1px solid #ddd; /* Adiciona uma borda ao redor da tabela */
+    max-height: 500px;
+    overflow-y: auto; 
+    border: 1px solid #ddd; 
   }
   
   .folhaponto button{
